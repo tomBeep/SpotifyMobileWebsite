@@ -1,0 +1,6 @@
+<ion-item>
+  <ion-label>Choose a playlist</ion-label>
+  <ion-select [(ngModel)]="selectedPlaylist">
+    <ion-option *ngFor="let playlist of $UsersPlaylists?.value.items">{{playlist.name}}</ion-option>
+  </ion-select>
+</ion-item>

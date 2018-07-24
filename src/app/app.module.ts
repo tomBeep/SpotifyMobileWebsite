@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
+import { PlayerPage } from '../pages/player/player';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -14,24 +14,28 @@ import {Globals} from "./globals";
 import {LoginPage} from "../pages/login/login";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {DataService} from "./dataService";
+import {SelectPlaylistPage} from "../pages/select-playlist/select-playlist";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    PlayerPage,
     ContactPage,
     HomePage,
     TabsPage,
     LoginPage,
+    SelectPlaylistPage,
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
+    PlayerPage,
     ContactPage,
     HomePage,
     TabsPage,

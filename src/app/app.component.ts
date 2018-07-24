@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = LoginPage;
+  rootPage: any = LoginPage;//should be login page
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private iab: InAppBrowser) {
 

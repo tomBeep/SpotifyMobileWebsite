@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {AboutPage} from '../about/about';
+import {PlayerPage} from '../player/player';
 import {ContactPage} from '../contact/contact';
 import {HomePage} from '../home/home';
 import {Globals} from "../../app/globals";
@@ -13,7 +13,7 @@ export class TabsPage {
   loggedIn: boolean = false;
 
   tab1Root = HomePage;
-  tab2Root = AboutPage;
+  tab2Root = PlayerPage;
   tab3Root = ContactPage;
 
   name: string;

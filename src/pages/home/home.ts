@@ -13,17 +13,7 @@ export class HomePage {
 
   }
   ngOnInit(){
-    this.showAlert();
+
   }
 
-
-  showAlert() {
-    var greeting = "Hello "+this.globals.name;
-    const alert = this.alertCtrl.create({
-      title: 'SWEN325 App!',
-      subTitle: greeting,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
 }
