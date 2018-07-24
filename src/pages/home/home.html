@@ -10,7 +10,7 @@
     <img *ngIf="userData!=null && userData.images!=null && userData.images[0]!=null"
          src="{{userData.images[0].url}}"
          width=270 height=270>
-    <ion-list>
+    <ion-list style="margin-bottom: 20px;">
       <li>
         <ion-icon name="people"></ion-icon>
         {{userData?.followers?.total}}
@@ -22,6 +22,10 @@
         Premium User
       </li>
     </ion-list>
+    <button ion-button color="spotifyGreen">
+      <ion-icon name="settings" style="margin-right: 10px"></ion-icon>
+      Settings
+    </button>
   </div>
 
 </ion-content>
