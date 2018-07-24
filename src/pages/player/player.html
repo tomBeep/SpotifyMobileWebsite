@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding style="text-align: center">
-  <page-select-playlist></page-select-playlist>
+  <page-select-playlist (newPlaylistSelected)="newPlaylistSelected($event)"></page-select-playlist>
   <button [outline]="!shuffle?true:false" color="spotifyGreen" ion-button round small icon-only
   (click)="shuffleToggle()">
     <ion-icon name="shuffle"></ion-icon>

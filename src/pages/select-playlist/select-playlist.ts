@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {DataService} from "../../app/dataService";
 import {Observable} from "rxjs/Observable";
@@ -12,6 +12,7 @@ export class SelectPlaylistPage {
 
   $UsersPlaylists: Observable<any>;
   selectedPlaylist : any;
+  @Output() newPlaylistSelected :  EventEmitter<string> = new EventEmitter();
 
   constructor(public navCtrl: NavController, private data: DataService) {
 
@@ -20,5 +21,13 @@ export class SelectPlaylistPage {
   ngOnInit() {
     //get a list of the users playlists
     this.data.getUsersPlaylists().subscribe(data => this.$UsersPlaylists = of(data));
+  }
+
+  change(event){
+    this.$UsersPlaylists.subscribe(data=>{
+      data.items.forEach(playlist=>{if(playlist.name == event){
+        this.newPlaylistSelected.emit(playlist.uri);
+      }})
+    });
   }
 }

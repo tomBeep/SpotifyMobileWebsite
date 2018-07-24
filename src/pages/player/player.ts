@@ -49,4 +49,10 @@ export class PlayerPage {
     this.data.toggleRepeat(newState).subscribe(success => {
     });
   }
+
+  newPlaylistSelected(playlistURI) {
+    this.data.playCurrentSong(playlistURI).subscribe(event => {
+    });
+    this.playPause = true;
+  }
 }
