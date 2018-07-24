@@ -11,6 +11,9 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {Globals} from "./globals";
+import {LoginPage} from "../pages/login/login";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {DataService} from "./dataService";
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import {Globals} from "./globals";
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage,
   ],
   imports: [
     BrowserModule,
@@ -30,12 +34,15 @@ import {Globals} from "./globals";
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage,
   ],
   providers: [
     Globals,
     StatusBar,
     SplashScreen,
+    InAppBrowser,
+    DataService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

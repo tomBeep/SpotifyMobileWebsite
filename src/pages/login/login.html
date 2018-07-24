@@ -1,0 +1,21 @@
+<ng-container *ngIf="!this.showLoadingCursor">
+  <ion-content padding class="spotifyPage" style="text-align: center">
+    <img src = "assets/imgs/spotifyIcon.png" height="200" width="200">
+    <h1 class="spotifyGreen">Tom's Spotify Playlist Editor</h1>
+    <h1 class="spotifyGreen">(TSPE)</h1>
+    <hr style="background: white"/>
+    <p>
+      You can use this app to play music or to edit playlists!
+    </p>
+
+    <p *ngIf="this.authFailed"> Login FAILED, please retry to continue using the app</p>
+    <button class="loginButton" (click)="this.login()">LOGIN</button>
+
+  </ion-content>
+</ng-container>
+
+<ng-container *ngIf="this.showLoadingCursor">
+  <ion-content class="spotifyPage">
+  <ion-spinner class="centerSpinner" name="crescent"></ion-spinner>
+  </ion-content>
+</ng-container>
