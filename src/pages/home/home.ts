@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
-import {Globals} from "../../app/globals";
+import {NavController} from 'ionic-angular';
+import {DataService} from "../../app/dataService";
+import {of} from "rxjs/observable/of";
 
 @Component({
   selector: 'page-home',
@@ -8,12 +9,15 @@ import {Globals} from "../../app/globals";
 })
 export class HomePage {
 
+  userData :any;
 
-  constructor(public navCtrl: NavController,public alertCtrl: AlertController, public globals:Globals) {
+  constructor(public navCtrl: NavController,public data : DataService) {
 
   }
   ngOnInit(){
-
+    this.data.getUserInfo().subscribe(data=>{
+      this.userData = data;
+    });
   }
 
 }

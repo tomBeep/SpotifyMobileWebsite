@@ -72,6 +72,12 @@ export class DataService {
     return this.http.put(url, null, {headers: this.headers});
   }
 
+  getUserInfo():Observable<any>{
+    let url: string = `${this.url}/v1/me`;
+    this.setHeader();
+    return this.http.get(url, {headers: this.headers});
+  }
+
   /**
    * Sets the access token to the given token and
    * TODO: sets a timeout which will notify the user when their token expires
