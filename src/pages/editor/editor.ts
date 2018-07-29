@@ -19,7 +19,7 @@ export class EditorPage {
   }
 
   loadTracks(playlist: string) {
-    //doesn't matter if playlist is full spotify id or not
+    //doesn't matter if playlist string is full spotify id or not
     let segments: string[] = playlist.split(":");
     this.playlistID = segments[segments.length - 1];
 
@@ -85,7 +85,7 @@ export class EditorPage {
     let track = this.allTracks[index];
     let trackArtists = "";
     track.track.artists.forEach(artist => trackArtists = trackArtists.concat(artist.name + ", "));
-    trackArtists = trackArtists.substring(0, trackArtists.length - 3);
+    trackArtists = trackArtists.substring(0, trackArtists.length - 2);
     let message =
       "<p>Track Name: <strong>" + track.track.name + "</strong></p>" +
       "<p>Release Date: <strong>" + this.formatDate(new Date(track.track.album.release_date)) + "</strong></p>" +

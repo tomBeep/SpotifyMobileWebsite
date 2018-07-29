@@ -5,8 +5,9 @@ import {Injectable} from "@angular/core";
 export class Globals {
 
   name: string;
-  premiumUser : boolean;
-  userID :string;
+  premiumUser: boolean;
+  userID: string;
+  
   constructor() {
 
   }
