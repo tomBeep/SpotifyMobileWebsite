@@ -30,8 +30,8 @@ export class LoginPage {
           this.authFailed = true;
         } else {
           this.data.token = params[2];
-          this.navCtrl.push(TabsPage);//navigate to home page
           window.history.pushState("object or string", "Title", "/");//remove pesky URL
+          this.navCtrl.push(TabsPage);//navigate to home page
         }
       } else {
         console.log("Haven't attempted login");

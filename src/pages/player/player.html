@@ -8,6 +8,7 @@
 
 <ion-content padding style="text-align: center" class="spotifyPage">
   <page-select-playlist (newPlaylistSelected)="newPlaylistSelected($event)"></page-select-playlist>
+  <div *ngIf="!this.globals.premiumUser">You must have a Spotify premium account to use the player.</div>
 </ion-content>
 
 <ion-footer style="text-align: center;margin-bottom: 5px">

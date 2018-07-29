@@ -11,3 +11,28 @@ img{
 div{
   font-size: 20px;
 }
+
+.alertCustomCss {
+  // text color for basic alerts
+  color: white;
+
+  button {
+    color: white !important; // button text color
+    background-color: color($colors, secondary, base) !important;
+  }
+  .alert-button{
+    display: inline-block;
+  }
+  .alert-button-group{
+    display: flex;
+    justify-content: center;
+  }
+  .alert-title{
+    text-align: center;
+  }
+
+  .alert-wrapper {
+    background-color: color($colors, dark, base); // bg color of alert content
+    text-align: center;
+  }
+}

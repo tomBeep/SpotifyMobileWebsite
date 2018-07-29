@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {AlertController, NavController} from 'ionic-angular';
 import {DataService} from "../../app/dataService";
 import {of} from "rxjs/observable/of";
 import {SettingsPage} from "../settings/settings";
+import {LoginPage} from "../login/login";
+import {Globals} from "../../app/globals";
 
 @Component({
   selector: 'page-home',
@@ -12,13 +14,15 @@ export class HomePage {
 
   userData: any;
 
-  constructor(public navCtrl: NavController, public data: DataService) {
+  constructor(public globals: Globals, public navCtrl: NavController, public data: DataService, private alertCtrl: AlertController) {
 
   }
 
   ngOnInit() {
     this.data.getUserInfo().subscribe(data => {
       this.userData = data;
+      this.globals.name = this.userData.display_name;
+      this.globals.premiumUser = this.userData.type == 'user' ? false : true;
     });
   }
 
@@ -26,8 +30,24 @@ export class HomePage {
     this.navCtrl.push(SettingsPage);
   }
 
-  logout():void{
-    console.log("logging out");
+  logout(): void {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure you want to logout',
+      cssClass: 'alertCustomCss',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Logout',
+          handler: () => {
+            this.navCtrl.push(LoginPage);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }

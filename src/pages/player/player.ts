@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {DataService} from "../../app/dataService";
+import {Globals} from "../../app/globals";
 
 @Component({
   selector: 'page-player',
@@ -12,7 +13,7 @@ export class PlayerPage {
   shuffle: boolean;
   playPause: boolean;
 
-  constructor(public navCtrl: NavController, private data: DataService) {
+  constructor(public navCtrl: NavController, private data: DataService, public globals:Globals) {
 
   }
 

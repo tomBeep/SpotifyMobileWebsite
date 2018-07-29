@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 
 import {PlayerPage} from '../player/player';
-import {ContactPage} from '../contact/contact';
 import {HomePage} from '../home/home';
 import {Globals} from "../../app/globals";
+import {EditorPage} from "../editor/editor";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -14,7 +14,7 @@ export class TabsPage {
 
   tab1Root = HomePage;
   tab2Root = PlayerPage;
-  tab3Root = ContactPage;
+  tab3Root = EditorPage;
 
   name: string;
 
