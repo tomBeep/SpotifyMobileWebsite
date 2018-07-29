@@ -1,8 +1,8 @@
 {
   "name": "tomIonicApp",
-  "app_id": "6b8ad924",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular",
+  "pro_id": "6b8ad924"
 }

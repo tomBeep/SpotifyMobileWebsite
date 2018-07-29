@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar color="spotifyBlack">
+    <ion-title style="text-align: center; margin-right: 45px;">
+      Settings
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="spotifyPage">
+  <ion-list>
+    <ion-item>
+      <ion-label>Offline Mode</ion-label>
+      <ion-toggle [(ngModel)]="offlineMode"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-range min="0" max="100" [(ngModel)]="volume" color="secondary">
+        <ion-label range-left>Volume</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item-divider style="text-align: center">
+      Streaming Quality
+    </ion-item-divider>
+    <ion-list radio-group [(ngModel)]="streamingQuality">
+      <ion-item>
+        <ion-label>32kbps</ion-label>
+        <ion-radio value=32 checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>64kbps</ion-label>
+        <ion-radio value=64></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>128kbps</ion-label>
+        <ion-radio value=128></ion-radio>
+      </ion-item>
+    </ion-list>
+
+      <button ion-item (click)="presentAlert()">
+        <ion-label style="margin-left: 10px">About
+          <ion-icon style="float: right" name="arrow-forward"></ion-icon>
+        </ion-label>
+      </button>
+
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-segment>
+    <button full (click)="backAndSave()" ion-button icon-end color="spotifyGreen">
+      Save Changes
+      <ion-icon name="lock"></ion-icon>
+    </button>
+  </ion-segment>
+</ion-footer>

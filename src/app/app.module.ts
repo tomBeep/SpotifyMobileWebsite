@@ -16,6 +16,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {DataService} from "./dataService";
 import {SelectPlaylistPage} from "../pages/select-playlist/select-playlist";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {SettingsPage} from "../pages/settings/settings";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     TabsPage,
     LoginPage,
     SelectPlaylistPage,
+    SettingsPage,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     HomePage,
     TabsPage,
     LoginPage,
+    SettingsPage,
   ],
   providers: [
     Globals,

@@ -5,12 +5,13 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import 'rxjs/add/operator/map';
+import {SettingsPage} from "../pages/settings/settings";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = LoginPage;//should be login page
+  rootPage: any = SettingsPage;//should be login page
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private iab: InAppBrowser) {
 
