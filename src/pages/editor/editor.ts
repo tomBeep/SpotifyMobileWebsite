@@ -45,27 +45,33 @@ export class EditorPage {
     }
   }
 
-  openOptions(track) {
-    console.log("HEY " + track);
+  openOptions(track, index) {
 
     const actionSheet = this.actionSheetCtrl.create({
-      cssClass: 'alertCustomCss',
+      cssClass: 'alertCustomCss2',
       buttons: [
         {
+          text: 'View All Song Info',
+          handler: () => {
+            this.displayFullSongInfo(index);
+          }
+        }, {
           text: 'Delete from Playlist',
           handler: () => {
             this.data.deleteSongsFromPlayList(this.playlistID, ['spotify:track:' + track]).subscribe(
-              success => console.log("success"), err => this.showAlert(err.error.error.message, true)
+              success => {
+                this.showAlert("Track Deleted", "Success");
+                this.loadTracks(this.playlistID);//reload the playlist
+              }, err => this.showAlert(err.error.error.message, "ERROR")
             );
           }
-        }
+        },
       ]
     });
     actionSheet.present();
   }
 
-  showAlert(message: string, isError: boolean) {
-    let title: string = isError ? "ERROR" : "Success";
+  showAlert(message: string, title: string) {
     const alert = this.alertCtrl.create({
       title: title,
       subTitle: message,
@@ -74,4 +80,44 @@ export class EditorPage {
     });
     alert.present();
   }
+
+  displayFullSongInfo(index) {
+    let track = this.allTracks[index];
+    let trackArtists = "";
+    track.track.artists.forEach(artist => trackArtists = trackArtists.concat(artist.name + ", "));
+    trackArtists = trackArtists.substring(0, trackArtists.length - 3);
+    let message =
+      "<p>Track Name: <strong>" + track.track.name + "</strong></p>" +
+      "<p>Release Date: <strong>" + this.formatDate(new Date(track.track.album.release_date)) + "</strong></p>" +
+      "<p>Date Added to playlist: <strong>" + this.formatDate(new Date(track.added_at)) + "</strong></p>" +
+      "<p>Track Duration: <strong>" + this.convertMillis(track.track.duration_ms) + "</strong></p>" +
+      "<p>Track Artists: <strong>" + trackArtists + "</strong></p>" +
+      "<p>Album Name: <strong>" + track.track.album.name + "</strong></p>" +
+      "<p>Track ID: <strong>" + track.track.id + "</strong></p>"
+    ;
+    let title = track.track.name;
+    this.showAlert(message, title);
+  }
+
+  formatDate(date): string {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+
+  convertMillis(millis): string {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + seconds;
+  }
 }
+

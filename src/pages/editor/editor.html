@@ -5,8 +5,7 @@
 </ion-header>
 
 <ion-content class="spotifyPage">
-  <div>Step: {{this.stage}}</div>
-  <page-select-playlist (newPlaylistSelected)="loadTracks($event)" *ngIf="this.stage == 1">
+  <page-select-playlist (newPlaylistSelected)="loadTracks($event)">
   </page-select-playlist>
 
   <ng-container *ngIf="!this.finishedLoadingSongs && stage == 2">
@@ -17,19 +16,19 @@
 
   <ng-container *ngIf="finishedLoadingSongs">
     <ion-grid>
-      <ion-row style="border-bottom: solid white 1px;">
-        <ion-col>#</ion-col>
-        <ion-col>Name</ion-col>
-        <ion-col>Duration</ion-col>
-        <ion-col></ion-col>
+      <ion-row>
+        <ion-col col-2>#</ion-col>
+        <ion-col col-6>Name</ion-col>
+        <ion-col col-2>Duration</ion-col>
+        <ion-col col-2></ion-col>
       </ion-row>
       <ion-row></ion-row>
       <ion-row justify-content-start style="color: #1DB954" *ngFor="let track of allTracks; index as i">
-        <ion-col>{{i}}</ion-col>
-        <ion-col>{{track.track.name}}</ion-col>
-        <ion-col>({{track?.track?.duration_ms | date:"m.ss"}})</ion-col>
-        <ion-col>
-          <button ion-button icon-only (click)="openOptions(track.track.id)">
+        <ion-col col-2>{{i}}</ion-col>
+        <ion-col col-6>{{track.track.name}}</ion-col>
+        <ion-col col-2>({{track?.track?.duration_ms | date:"m.ss"}})</ion-col>
+        <ion-col col-2>
+          <button class="rowButton" ion-button icon-only (click)="openOptions(track.track.id,i)">
             <ion-icon name="cog"></ion-icon>
           </button>
         </ion-col>
