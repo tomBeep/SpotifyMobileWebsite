@@ -18,12 +18,12 @@ export class TabsPage {
 
   name: string;
 
-  constructor(private globals:Globals) {
+  constructor(private globals: Globals) {
 
   }
 
-  login(){
-    if(this.name==null || this.name==""){
+  login() {
+    if (this.name == null || this.name == "") {
       return;
     }
     this.loggedIn = true;

@@ -5,5 +5,36 @@
 </ion-header>
 
 <ion-content class="spotifyPage">
-  <div>Hello!</div>
+  <div>Step: {{this.stage}}</div>
+  <page-select-playlist (newPlaylistSelected)="loadTracks($event)" *ngIf="this.stage == 1">
+  </page-select-playlist>
+
+  <ng-container *ngIf="!this.finishedLoadingSongs && stage == 2">
+    <ion-content class="spotifyPage">
+      <ion-spinner class="centerSpinner" name="crescent"></ion-spinner>
+    </ion-content>
+  </ng-container>
+
+  <ng-container *ngIf="finishedLoadingSongs">
+    <ion-grid>
+      <ion-row style="border-bottom: solid white 1px;">
+        <ion-col>#</ion-col>
+        <ion-col>Name</ion-col>
+        <ion-col>Duration</ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row></ion-row>
+      <ion-row justify-content-start style="color: #1DB954" *ngFor="let track of allTracks; index as i">
+        <ion-col>{{i}}</ion-col>
+        <ion-col>{{track.track.name}}</ion-col>
+        <ion-col>({{track?.track?.duration_ms | date:"m.ss"}})</ion-col>
+        <ion-col>
+          <button ion-button icon-only (click)="openOptions(track.track.id)">
+            <ion-icon name="cog"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
 </ion-content>

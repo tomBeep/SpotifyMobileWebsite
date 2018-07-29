@@ -1,3 +1,44 @@
-page-contact {
+editor {
+  ion-spinner * {
+    width: 100px;
+    height: 100px;
+  }
+}
+.centerSpinner{
+  display: block;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform: translate(-50px, -50px);
+}
 
+.alertCustomCss {
+  // text color for basic alerts
+  color: white;
+
+  button {
+    color: white !important; // button text color
+    background-color: color($colors, secondary, base) !important;
+  }
+  .alert-button{
+    width: 90%;
+    display: inline-block;
+  }
+  .button-inner{
+    justify-content: center!important;
+  }
+  .alert-button-group{
+    display: flex;
+    justify-content: center;
+  }
+  .alert-title{
+    text-align: center;
+  }
+
+  .alert-wrapper {
+    background-color: color($colors, dark, base); // bg color of alert content
+    text-align: center;
+  }
 }

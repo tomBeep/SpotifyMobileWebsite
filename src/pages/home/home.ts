@@ -23,6 +23,7 @@ export class HomePage {
       this.userData = data;
       this.globals.name = this.userData.display_name;
       this.globals.premiumUser = this.userData.type == 'user' ? false : true;
+      this.globals.userID = this.userData.id;
     });
   }
 
@@ -33,7 +34,7 @@ export class HomePage {
   logout(): void {
     let alert = this.alertCtrl.create({
       title: 'Are you sure you want to logout',
-      cssClass: 'alertCustomCss',
+      cssClass: 'logout',
       buttons: [
         {
           text: 'Cancel',

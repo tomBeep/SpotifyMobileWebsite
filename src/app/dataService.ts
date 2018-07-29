@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
+import {Globals} from "./globals";
 
 
 @Injectable()
@@ -10,7 +11,7 @@ export class DataService {
   private url: string = "https://api.spotify.com";
   private headers: HttpHeaders;//this header contains the Spotify token if logged in.
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private globals:Globals) {
 
   }
 
@@ -76,6 +77,30 @@ export class DataService {
     let url: string = `${this.url}/v1/me`;
     this.setHeader();
     return this.http.get(url, {headers: this.headers});
+  }
+
+  getAllTracks(url: string): Observable<any> {
+    this.setHeader();
+    return this.http.get(url, {headers: this.headers});
+  }
+
+  getPlaylist(uri: string): Observable<any> {
+    let splitURI = uri.split(':');
+    let url: string = `${this.url}/v1/users/${this.globals.userID}/playlists/${uri}`;
+    this.setHeader();
+    return this.http.get(url, {headers: this.headers});
+  }
+
+  deleteSongsFromPlayList(playlistID: string, URIsToDelete: string[]): Observable<any> {
+    let userId = this.globals.userID;
+    let url: string = `${this.url}/v1/users/${userId}/playlists/${playlistID}/tracks`;
+    this.setHeader();
+    this.headers.set('Content-Type','application/json');
+    let songs = [];
+    let tracks = {tracks:songs};
+    URIsToDelete.forEach(uri=>songs.push({"uri":uri}));
+    return this.http.request('delete', url, {body: tracks, headers: {'Content-Type': 'application/json','Authorization':"Bearer " + this.token}});
+    // return this.http.request('delete', url, {body: jsonItem, headers: this.headers});
   }
 
   /**

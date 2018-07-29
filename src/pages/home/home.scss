@@ -12,7 +12,7 @@ div{
   font-size: 20px;
 }
 
-.alertCustomCss {
+.logout {
   // text color for basic alerts
   color: white;
 
@@ -21,7 +21,11 @@ div{
     background-color: color($colors, secondary, base) !important;
   }
   .alert-button{
+    width: 40%;
     display: inline-block;
+  }
+  .button-inner{
+    justify-content: center!important;
   }
   .alert-button-group{
     display: flex;
