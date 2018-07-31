@@ -46,7 +46,6 @@ export class EditorPage {
   }
 
   openOptions(track, index) {
-
     const actionSheet = this.actionSheetCtrl.create({
       cssClass: 'alertCustomCss2',
       buttons: [

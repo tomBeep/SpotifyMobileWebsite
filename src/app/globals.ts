@@ -7,7 +7,7 @@ export class Globals {
   name: string;
   premiumUser: boolean;
   userID: string;
-  
+
   constructor() {
 
   }

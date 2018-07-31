@@ -11,19 +11,29 @@ export class PlayerPage {
 
   repeat: boolean;
   shuffle: boolean;
-  playPause: boolean;
+  playPause: boolean;//true if playing a song
+  picture:any;
+  songName:string;
+  imageSrc:string;
+  songArtists:string;
 
-  constructor(public navCtrl: NavController, private data: DataService, public globals:Globals) {
+  constructor(public navCtrl: NavController, private data: DataService, public globals: Globals) {
 
+  }
+
+  ngOnInit(){
+    this.updateCurrentlyPlaying();
   }
 
   nextSong() {
     this.data.nextSong().subscribe(success => {
+      setTimeout(()=>this.updateCurrentlyPlaying(),500);
     });
   }
 
   previousSong() {
     this.data.previousSong().subscribe(success => {
+      setTimeout(()=>this.updateCurrentlyPlaying(),500);
     });
   }
 
@@ -53,7 +63,26 @@ export class PlayerPage {
 
   newPlaylistSelected(playlistURI) {
     this.data.playCurrentSong(playlistURI).subscribe(event => {
+      setTimeout(()=>this.updateCurrentlyPlaying(),500);
     });
     this.playPause = true;
+  }
+
+  updateCurrentlyPlaying() {
+    this.data.getCurrentPlayingSong().subscribe(data => {
+      try {
+        this.playPause = data.is_playing;
+        this.shuffle = data.shuffle_state;
+        this.songName = data.item.name;
+        this.imageSrc = data.item.album.images[0].url;
+        //display a nice string of the artist's names
+        let trackArtists = "";
+        data.item.artists.forEach(artist => trackArtists = trackArtists.concat(artist.name + ", "));
+        trackArtists = trackArtists.substring(0, trackArtists.length - 2);
+        this.songArtists = trackArtists;
+      } catch (err) {
+        //do nothing.
+      }
+    });
   }
 }

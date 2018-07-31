@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
+import {DataService} from "../../app/dataService";
 
 @Component({
   selector: 'settings-playlist',
@@ -11,7 +12,7 @@ export class SettingsPage {
   streamingQuality: number = 64;
   offlineMode = false;
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController,private data:DataService) {
 
   }
 
@@ -19,19 +20,11 @@ export class SettingsPage {
     console.log("inited");
   }
 
-  back() {
-    if (this.navCtrl.canGoBack()) {
-      this.navCtrl.pop();
-    }
-  }
-
   backAndSave() {
     if (this.navCtrl.canGoBack()) {
       this.navCtrl.pop();
     }
-    console.log("volume: " + this.volume);
-    console.log("streamingQuality: " + this.streamingQuality);
-    console.log("offline mode: " + this.offlineMode);
+    this.data.modifyVolume(this.volume).subscribe(res=>{});
   }
 
   presentAlert() {

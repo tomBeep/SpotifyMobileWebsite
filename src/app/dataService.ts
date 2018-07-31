@@ -11,14 +11,14 @@ export class DataService {
   private url: string = "https://api.spotify.com";
   private headers: HttpHeaders;//this header contains the Spotify token if logged in.
 
-  constructor(private http: HttpClient, private globals:Globals) {
+  constructor(private http: HttpClient, private globals: Globals) {
 
   }
 
-  loginToSpotify():void {
+  loginToSpotify(): void {
     let publicKey: string = '75ac4d84a5dd44e8bf22810fdbe366a1';
     let callbackURL: string = "http://localhost:8100";
-    let url: string = `https://accounts.spotify.com/authorize?client_id=${publicKey}&response_type=token&scope=streaming&redirect_uri=${callbackURL}`;
+    let url: string = `https://accounts.spotify.com/authorize?client_id=${publicKey}&response_type=token&scope=streaming+user-read-playback-state+user-modify-playback-state+playlist-modify-private+playlist-modify-public&redirect_uri=${callbackURL}`;
     window.location.href = url;
   }
 
@@ -73,7 +73,7 @@ export class DataService {
     return this.http.put(url, null, {headers: this.headers});
   }
 
-  getUserInfo():Observable<any>{
+  getUserInfo(): Observable<any> {
     let url: string = `${this.url}/v1/me`;
     this.setHeader();
     return this.http.get(url, {headers: this.headers});
@@ -95,12 +95,24 @@ export class DataService {
     let userId = this.globals.userID;
     let url: string = `${this.url}/v1/users/${userId}/playlists/${playlistID}/tracks`;
     this.setHeader();
-    this.headers.set('Content-Type','application/json');
+    this.headers.set('Content-Type', 'application/json');
     let songs = [];
-    let tracks = {tracks:songs};
-    URIsToDelete.forEach(uri=>songs.push({"uri":uri}));
-    return this.http.request('delete', url, {body: tracks, headers: {'Content-Type': 'application/json','Authorization':"Bearer " + this.token}});
+    let tracks = {tracks: songs};
+    URIsToDelete.forEach(uri => songs.push({"uri": uri}));
+    return this.http.request('delete', url, {body: tracks, headers: {'Content-Type': 'application/json', 'Authorization': "Bearer " + this.token}});
     // return this.http.request('delete', url, {body: jsonItem, headers: this.headers});
+  }
+
+  getCurrentPlayingSong(): Observable<any> {
+    let url: string = `${this.url}/v1/me/player/`;
+    this.setHeader();
+    return this.http.get(url, {headers: this.headers});
+  }
+
+  modifyVolume(volume:number){
+    let url: string = `${this.url}/v1/me/player/volume?volume_percent=${volume}`;
+    this.setHeader();
+    return this.http.put(url, null,{headers: this.headers});
   }
 
   /**
