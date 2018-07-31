@@ -38,6 +38,12 @@ export class DataService {
     }
   }
 
+  playATrack(trackID: string) {
+    let url: string = `${this.url}/v1/me/player/play`;
+    this.setHeader();
+    return this.http.put(url, {"uris": [trackID]}, {headers: this.headers});
+  }
+
   pause(): Observable<any> {
     let url: string = `${this.url}/v1/me/player/pause`;
     this.setHeader();
@@ -109,10 +115,10 @@ export class DataService {
     return this.http.get(url, {headers: this.headers});
   }
 
-  modifyVolume(volume:number){
+  modifyVolume(volume: number) {
     let url: string = `${this.url}/v1/me/player/volume?volume_percent=${volume}`;
     this.setHeader();
-    return this.http.put(url, null,{headers: this.headers});
+    return this.http.put(url, null, {headers: this.headers});
   }
 
   /**

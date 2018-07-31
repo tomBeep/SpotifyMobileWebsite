@@ -17,6 +17,7 @@ import {DataService} from "./dataService";
 import {SelectPlaylistPage} from "../pages/select-playlist/select-playlist";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {SettingsPage} from "../pages/settings/settings";
+import {DuplicateFinderPage} from "../pages/duplicate-finder/duplicate-finder";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {SettingsPage} from "../pages/settings/settings";
     LoginPage,
     SelectPlaylistPage,
     SettingsPage,
+    DuplicateFinderPage,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ import {SettingsPage} from "../pages/settings/settings";
     TabsPage,
     LoginPage,
     SettingsPage,
+    DuplicateFinderPage,
   ],
   providers: [
     Globals,

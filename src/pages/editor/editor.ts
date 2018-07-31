@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
-import {ActionSheetController, AlertController, NavController} from 'ionic-angular';
+import {ActionSheetController, AlertController, NavController, NavOptions, Tabs} from 'ionic-angular';
 import {DataService} from "../../app/dataService";
+import {PlayerPage} from "../player/player";
+import {Globals} from "../../app/globals";
 
 @Component({
   selector: 'editor',
@@ -14,7 +16,8 @@ export class EditorPage {
   playlistID: string;
 
   constructor(public navCtrl: NavController, private data: DataService,
-              private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController) {
+              private actionSheetCtrl: ActionSheetController,
+              private alertCtrl: AlertController,private globals:Globals) {
 
   }
 
@@ -32,6 +35,11 @@ export class EditorPage {
     });
   }
 
+  playSong(index) {
+    this.globals.playSong = this.allTracks[index].track.uri;
+    console.log(this.globals.playSong);
+    this.navCtrl.parent.select(1);
+  }
 
   private loadExtraTracks(nextURL): void {
     if (nextURL != null) {
@@ -49,6 +57,12 @@ export class EditorPage {
     const actionSheet = this.actionSheetCtrl.create({
       cssClass: 'alertCustomCss2',
       buttons: [
+        {
+          text: 'Play song',
+          handler: () => {
+            this.playSong(index);
+          }
+        },
         {
           text: 'View All Song Info',
           handler: () => {
@@ -82,15 +96,12 @@ export class EditorPage {
 
   displayFullSongInfo(index) {
     let track = this.allTracks[index];
-    let trackArtists = "";
-    track.track.artists.forEach(artist => trackArtists = trackArtists.concat(artist.name + ", "));
-    trackArtists = trackArtists.substring(0, trackArtists.length - 2);
     let message =
       "<p>Track Name: <strong>" + track.track.name + "</strong></p>" +
       "<p>Release Date: <strong>" + this.formatDate(new Date(track.track.album.release_date)) + "</strong></p>" +
       "<p>Date Added to playlist: <strong>" + this.formatDate(new Date(track.added_at)) + "</strong></p>" +
       "<p>Track Duration: <strong>" + this.convertMillis(track.track.duration_ms) + "</strong></p>" +
-      "<p>Track Artists: <strong>" + trackArtists + "</strong></p>" +
+      "<p>Track Artists: <strong>" + Globals.printArtistsNice(track.track.artists) + "</strong></p>" +
       "<p>Album Name: <strong>" + track.track.album.name + "</strong></p>" +
       "<p>Track ID: <strong>" + track.track.id + "</strong></p>"
     ;

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="spotifyBlack">
+    <ion-title style=" text-align: center">Duplicate Finder</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="spotifyPage">
+  <page-select-playlist (newPlaylistSelected)="loadTracks($event)">
+  </page-select-playlist>
+  <ng-container *ngIf="!this.finishedLoadingSongs && stage == 2">
+    <ion-content class="spotifyPage">
+      <ion-spinner class="centerSpinner" name="crescent"></ion-spinner>
+    </ion-content>
+  </ng-container>
+
+  <ng-container *ngIf="finishedLoadingSongs">
+    <ion-label style="text-align: center" color="spotifyGreen">Playlist loaded</ion-label>
+    <div style="text-align: center">
+      <button (click)="this.findDuplicateRemasteredSongs()"style="width: 80%" ion-button color="spotifyGreen">Find Duplicates</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="this.duplicates!=null && this.duplicates.length>0">
+    <ion-label style="text-align: center" color="spotifyGreen">Duplicates Found</ion-label>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>Name</ion-col>
+        <ion-col col-6>Artists</ion-col>
+      </ion-row>
+      <ion-row></ion-row>
+      <ion-row justify-content-start style="color: #1DB954" *ngFor="let track of duplicates; index as i">
+        <ion-col col-6>{{track?.track?.name}}</ion-col>
+        <ion-col col-6>{{printNice(track?.track?.artists)}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+  <ng-container *ngIf="this.duplicates!=null && this.duplicates.length==0">
+    <ion-label style="text-align: center" color="spotifyGreen">No duplicates were found</ion-label>
+  </ng-container>
+
+</ion-content>

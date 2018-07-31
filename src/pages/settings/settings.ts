@@ -33,8 +33,9 @@ export class SettingsPage {
       subTitle: 'Made by Thomas Edwards',
       message: '<p>Version: 1.0</p>' +
       '<p>Date: 29/07/2018</p>' +
-      '<p>Developed By: Thomas</p>' +
-      '<p>Styled By: Thomas</p>' +
+      '<p>Developed By: Thomas Edwards</p>' +
+      '<p>Styled By: Thomas Edwards</p>' +
+      '<p>Made with Ionic and Angular Frameworks</p>' +
       '<p>For more information about Spotify see their website</p>' +
       '<p>All images are taken with copyright permission from Spotify\'s website</p>',
       buttons: ['Dismiss']
