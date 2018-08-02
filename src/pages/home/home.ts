@@ -44,6 +44,7 @@ export class HomePage {
           text: 'Logout',
           handler: () => {
             this.navCtrl.push(LoginPage);
+            this.data.logout();
           }
         }
       ]

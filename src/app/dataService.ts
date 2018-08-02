@@ -10,6 +10,7 @@ export class DataService {
   token: string;
   private url: string = "https://api.spotify.com";
   private headers: HttpHeaders;//this header contains the Spotify token if logged in.
+  private show_dialog: boolean;
 
   constructor(private http: HttpClient, private globals: Globals) {
 
@@ -18,8 +19,14 @@ export class DataService {
   loginToSpotify(): void {
     let publicKey: string = '75ac4d84a5dd44e8bf22810fdbe366a1';
     let callbackURL: string = "http://localhost:8100";
-    let url: string = `https://accounts.spotify.com/authorize?client_id=${publicKey}&response_type=token&scope=streaming+user-read-playback-state+user-modify-playback-state+playlist-modify-private+playlist-modify-public&redirect_uri=${callbackURL}`;
+    let url: string = `https://accounts.spotify.com/authorize?client_id=${publicKey}&response_type=token&scope=streaming+user-read-playback-state+user-modify-playback-state+playlist-modify-private+playlist-modify-public&show_dialog=${this.show_dialog}&redirect_uri=${callbackURL}`;
     window.location.href = url;
+    this.show_dialog = false;
+  }
+
+  //no way to logout but one can force dialog to be shown on re login
+  logout(): void {
+    this.show_dialog = true;
   }
 
   getUsersPlaylists(): Observable<any> {
