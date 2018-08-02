@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
+import {AlertController, NavController, Platform} from 'ionic-angular';
 import {Globals} from "../../app/globals";
 import {DataService} from "../../app/dataService";
 import {TabsPage} from "../tabs/tabs";
@@ -13,17 +13,16 @@ export class LoginPage {
   authFailed: boolean;
   showLoadingCursor: boolean;
 
-  constructor(public data: DataService, public navCtrl: NavController, public alertCtrl: AlertController, public globals: Globals) {
+  constructor(public data: DataService, private plt: Platform, public navCtrl: NavController, public alertCtrl: AlertController, public globals: Globals) {
 
   }
 
   ionViewDidLoad() {
     //this is web specific code for logging into spotifies API.
     //when login function is called,
-    // browser navigates to spotify's login page, then navigates back to this page on success
-    if (document.URL != null) {
+    // browser navigates to spotify's login page, then navigates back to this page on success with a bunch of params
+    if (document.URL != null) {//is null if on mobile...
       let params: string[] = document.URL.split(/([{=&}]+)/);
-      params.forEach((p) => console.log(p));
       if (params[2] != null) {
         if (params[2] === "access_denied") {//happens if user denies app the right to access spotify.
           console.log("login failed!");
@@ -42,7 +41,30 @@ export class LoginPage {
 
   login(): void {
     this.showLoadingCursor = true;
-    this.data.loginToSpotify();
+    if (this.plt.is('core')) {
+      this.data.loginToSpotifyDesktop();
+    } else {
+      this.loginWithMobile();
+    }
+  }
+
+  private loginWithMobile(): void {
+    let obj = this.data.loginToSpotifyMobile();
+    obj.observable.subscribe(data => {
+      var url = data.url;
+      console.log("URL is: " + url);
+      if (url.startsWith("http://tspe-app://callback")) {
+        obj.browser.close();
+        let params: string[] = url.split(/([{=&}]+)/);
+        if (params[2] != null) {
+          if (params[2] === "access_denied") {//happens if user denies app the right to access spotify.
+          } else {
+            this.data.token = params[2];
+            this.navCtrl.push(TabsPage);//navigate to home page
+          }
+        }
+      }
+    });
   }
 
 

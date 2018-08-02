@@ -7,9 +7,11 @@
 <ion-content class="spotifyPage">
   <div style="text-align: center; color: #1DB954;">
     <h2 style="margin-bottom: 20px">{{userData?.display_name}}</h2>
-    <img class="tomImg" *ngIf="userData!=null && userData.images!=null && userData.images[0]!=null"
-         src="{{userData.images[0].url}}"
-         width=270 height=270>
+    <div>
+      <img class="tomImg" *ngIf="userData!=null && userData.images!=null && userData.images[0]!=null"
+           src="{{userData.images[0].url}}"
+           width=270 height=270>
+    </div>
     <ion-list style="margin-bottom: 20px;">
       <li>
         <ion-icon name="people"></ion-icon>
@@ -23,7 +25,7 @@
       </li>
     </ion-list>
     <div margin-bottom="20px">
-      <button (click)= "this.moveToSettingsPage()" style="width: 40%" ion-button color="spotifyGreen">
+      <button (click)="this.moveToSettingsPage()" style="width: 40%" ion-button color="spotifyGreen">
         <ion-icon name="settings" style="margin-right: 10px"></ion-icon>
         Settings
       </button>

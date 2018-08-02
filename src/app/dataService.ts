@@ -2,6 +2,9 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Globals} from "./globals";
+import {NavController, Platform} from "ionic-angular";
+import {InAppBrowser, InAppBrowserObject} from "@ionic-native/in-app-browser";
+import {TabsPage} from "../pages/tabs/tabs";
 
 
 @Injectable()
@@ -12,16 +15,34 @@ export class DataService {
   private headers: HttpHeaders;//this header contains the Spotify token if logged in.
   private show_dialog: boolean;
 
-  constructor(private http: HttpClient, private globals: Globals) {
+  constructor(private http: HttpClient, private globals: Globals, private iab: InAppBrowser) {
 
   }
 
-  loginToSpotify(): void {
+  loginToSpotifyDesktop(): void {
     let publicKey: string = '75ac4d84a5dd44e8bf22810fdbe366a1';
-    let callbackURL: string = "http://localhost:8100";
+    let callbackURL: string = "http://localhost:8100";//desktop callback
     let url: string = `https://accounts.spotify.com/authorize?client_id=${publicKey}&response_type=token&scope=streaming+user-read-playback-state+user-modify-playback-state+playlist-modify-private+playlist-modify-public&show_dialog=${this.show_dialog}&redirect_uri=${callbackURL}`;
     window.location.href = url;
     this.show_dialog = false;
+    return;
+  }
+
+  /**
+   *
+   * @returns an object containing an observable and a browser, browser should closed.
+   */
+  loginToSpotifyMobile(): mobileLogin {
+    //login for both android/ios phones.
+    let publicKey: string = '75ac4d84a5dd44e8bf22810fdbe366a1';
+    let callbackURL: string = "TSPE-App://callback";//mobile call back
+    let url: string = `https://accounts.spotify.com/authorize?client_id=${publicKey}&response_type=token&scope=streaming+user-read-playback-state+user-modify-playback-state+playlist-modify-private+playlist-modify-public&show_dialog=${this.show_dialog}&redirect_uri=${callbackURL}`;
+    const browser = this.iab.create(url, '_blank', {
+      location: 'no',
+      zoom: 'no',
+    });
+    this.show_dialog = false;
+    return {observable: browser.on('loadstart'), browser: browser};
   }
 
   //no way to logout but one can force dialog to be shown on re login
@@ -138,4 +159,9 @@ export class DataService {
       .set('Authorization', "Bearer " + this.token);
     //need to set a timeout to notify the user when 60minute token expires
   }
+}
+
+interface mobileLogin {
+  observable: Observable<any>;
+  browser: InAppBrowserObject;
 }
