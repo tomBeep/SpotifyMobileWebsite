@@ -16,17 +16,21 @@ export class PlayerPage {
   songName: string;
   imageSrc: string;
   songArtists: string;
+  userNotPremium: boolean;
 
 
   constructor(public navCtrl: NavController, private data: DataService, public globals: Globals) {
 
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     if (this.globals.playSong != null) {
       this.data.playATrack(this.globals.playSong).subscribe(res => {
         setTimeout(() => this.updateCurrentlyPlaying(), 500);
         this.globals.playSong = null;
+      }, err => {
+        if (err.error.error.status = 403)
+          this.userNotPremium = true;
       });
     } else {
       this.updateCurrentlyPlaying();
@@ -50,7 +54,12 @@ export class PlayerPage {
     this.playPause = !this.playPause;
     if (this.playPause == true) {
       this.data.playCurrentSong().subscribe(event => {
-      });
+        },
+        err => {
+          if (err.error.error.status = 403)
+            this.userNotPremium = true;
+        }
+      );
     } else {
       this.data.pause().subscribe(event => {
       });
@@ -72,6 +81,9 @@ export class PlayerPage {
   newPlaylistSelected(playlistURI) {
     this.data.playCurrentSong(playlistURI).subscribe(event => {
       setTimeout(() => this.updateCurrentlyPlaying(), 500);
+    }, err => {
+      if (err.error.error.status = 403)
+        this.userNotPremium = true;
     });
     this.playPause = true;
   }

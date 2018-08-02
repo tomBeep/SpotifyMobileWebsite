@@ -9,7 +9,11 @@
 <ion-content padding style="text-align: center" class="spotifyPage">
   <page-select-playlist (newPlaylistSelected)="newPlaylistSelected($event)"></page-select-playlist>
   <div style="margin-bottom: 20px"></div>
-  <img src="{{this.imageSrc}}" alt ="loading..." width=270 height=270/>
+  <img src="{{this.imageSrc}}" alt="No song playing"
+       onerror="this.onerror=null;this.src='http://www.scdn.co/i/_global/twitter_card-default.jpg';"
+       width=270 height=270/>
+  <ion-label *ngIf="this.imageSrc==null && !this.userNotPremium">Select a playlist to get started</ion-label>
+  <div *ngIf="this.userNotPremium">You must have a Spotify premium account to use the player</div>
   <ion-label color="spotifyGreen">{{this.songName}}</ion-label>
   <ion-label>{{this.songArtists}}</ion-label>
 </ion-content>
