@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar color="spotifyBlack">
+    <ion-title style=" text-align: center">Full Song Info</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="spotifyPage">
+  <hr/>
+  <p>Track Name: <strong> {{track.track.name}} </strong></p>
+  <p>Track Artists: <strong>{{ this.printArtists() }}</strong></p>
+  <p>Track Duration: <strong>{{ this.convertMillis(track.track.duration_ms) }}</strong></p>
+  <p>Track ID: <strong>{{ track.track.id }}</strong></p>
+  <p>Track Popularity: <strong>{{ track.track.popularity }}</strong></p>
+  <p>Track Number: <strong>{{ track.track.track_number }}</strong></p>
+  <p>Disc Number: <strong>{{ track.track.disc_number }}</strong></p>
+  <p>Track URI: <strong>{{ track.track.uri }}</strong></p>
+  <hr/>
+  <p>Album Name: <strong>{{ track.track.album.name}}</strong></p>
+  <p>Album ID: <strong>{{ track.track.album.id}}</strong></p>
+  <p>Album Total Tracks: <strong>{{ track.track.album.total_tracks}}</strong></p>
+  <hr/>
+  <p>Release Date: <strong>{{this.formatDate(track.track.album.release_date) }}</strong></p>
+  <p>Date Added to playlist: <strong>{{ this.formatDate(track.added_at) }}</strong></p>
+  <hr/>
+</ion-content>

@@ -4,7 +4,8 @@ editor {
     height: 100px;
   }
 }
-.centerSpinner{
+
+.centerSpinner {
   display: block;
   margin: 0;
   position: absolute;
@@ -22,18 +23,18 @@ editor {
     color: white !important; // button text color
     background-color: color($colors, secondary, base) !important;
   }
-  .alert-button{
+  .alert-button {
     width: 90%;
     display: inline-block;
   }
-  .button-inner{
-    justify-content: center!important;
+  .button-inner {
+    justify-content: center !important;
   }
-  .alert-button-group{
+  .alert-button-group {
     display: flex;
     justify-content: center;
   }
-  .alert-title{
+  .alert-title {
     text-align: center;
   }
 
@@ -51,18 +52,18 @@ editor {
     color: white !important; // button text color
     background-color: color($colors, secondary, base) !important;
   }
-  .alert-button{
+  .alert-button {
     width: 90%;
     display: inline-block;
   }
-  .button-inner{
-    justify-content: center!important;
+  .button-inner {
+    justify-content: center !important;
   }
-  .alert-button-group{
+  .alert-button-group {
     display: flex;
     justify-content: center;
   }
-  .alert-title{
+  .alert-title {
     text-align: center;
   }
 
@@ -72,15 +73,17 @@ editor {
   }
 }
 
-ion-row{
+ion-row {
   border-bottom: solid white 1px
 }
-.rowButton{
+
+.rowButton {
   width: 100%;
-  height:100%;
+  height: 100%;
   background: black;
   transform: translateY(-5px);
 }
-.rowButton:hover{
-  background: #1DB954!important;
+
+.rowButton:hover {
+  background: #1DB954 !important;
 }
