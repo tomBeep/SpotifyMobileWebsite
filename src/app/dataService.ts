@@ -12,8 +12,9 @@ export class DataService {
 
   token: string;
   private url: string = "https://api.spotify.com";
+
   private headers: HttpHeaders;//this header contains the Spotify token if logged in.
-  private show_dialog: boolean;
+  private show_dialog: boolean;//variable used to force a user to log in officially.
 
   constructor(private http: HttpClient, private globals: Globals, private iab: InAppBrowser) {
 
